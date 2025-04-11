@@ -1,0 +1,1630 @@
+{
+	"info": {
+		"_postman_id": "5c7adb17-74d8-4026-87a0-b76124c70d6b",
+		"name": "Golang_HealthCare_BharatSeva",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24259607"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var healthcare_id = jsonData.Healthcare_details.healthcare_id;\r",
+							"\r",
+							"pm.collectionVariables.set(\"H_ID\", healthcare_id);\r",
+							"\r",
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the structure of Healthcare_details object\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.Healthcare_details).to.exist.and.to.be.an('object');\r",
+							"    pm.expect(responseData.Healthcare_details.email).to.exist.and.to.be.a('string');\r",
+							"    pm.expect(responseData.Healthcare_details.healthcare_id).to.exist.and.to.be.a('string');\r",
+							"    pm.expect(responseData.Healthcare_details.healthcare_license).to.exist.and.to.be.a('string');\r",
+							"    pm.expect(responseData.Healthcare_details.name).to.exist.and.to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Healthcare details include email, healthcare_id, healthcare_license, and name\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.Healthcare_details).to.be.an('object');\r",
+							"    pm.expect(responseData.Healthcare_details.email).to.exist;\r",
+							"    pm.expect(responseData.Healthcare_details.healthcare_id).to.exist;\r",
+							"    pm.expect(responseData.Healthcare_details.healthcare_license).to.exist;\r",
+							"    pm.expect(responseData.Healthcare_details.name).to.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status field is present in the response\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.have.property('status');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{$randomFullName}} Hospital\",\r\n    \"availability\": \"Yes\",\r\n    \"total_facilities\": 200,\r\n    \"total_mbbs_doc\": 58,\r\n    \"total_worker\": 400,\r\n    \"no_of_beds\": 200,\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"appointment_fee\": 300,\r\n    \"about\": \"{{$randomJobDescriptor}}\",\r\n    \"password\": \"12345\",\r\n    \"address\": {\r\n        \"country\": \"{{$randomCountry}}\",\r\n        \"landmark\": \"{{$randomStreetName}}\",\r\n        \"city\": \"{{$randomCity}}\",\r\n        \"state\": \"{{$randomCity}}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{Addr}}/api/v1/healthcare/auth/register"
+			},
+			"response": [
+				{
+					"name": "Register",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomFullName}} Hospital\",\r\n    \"availability\": \"Yes\",\r\n    \"total_facilities\": 200,\r\n    \"total_mbbs_doc\": 58,\r\n    \"total_worker\": 400,\r\n    \"no_of_beds\": 200,\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"appointment_fee\": 300,\r\n    \"about\": \"{{$randomJobDescriptor}}\",\r\n    \"password\": \"12345\",\r\n    \"address\": {\r\n        \"country\": \"{{$randomCountry}}\",\r\n        \"landmark\": \"{{$randomStreetName}}\",\r\n        \"city\": \"{{$randomCity}}\",\r\n        \"state\": \"{{$randomCity}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Addr}}/api/v1/healthcare/auth/register"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:12:07 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "208"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Healthcare_details\": {\n        \"email\": \"Mae_Carroll72@gmail.com\",\n        \"healthcare_id\": \"HCID69d6e6cf-f071-4824-8\",\n        \"healthcare_license\": \"69d6e6cf-f071-4824-8\",\n        \"name\": \"Pat Gaylord Hospital\"\n    },\n    \"status\": \"Successfully Created\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"if (pm.response.code >= 200 && pm.response.code < 300) {\r",
+							"\r",
+							"    var token = jsonData.token;\r",
+							"    pm.collectionVariables.set(\"HIP_TOKEN\", token);\r",
+							"\r",
+							"    var healthcare_id = jsonData.healthcare_id;\r",
+							"    pm.globals.set(\"healthcare_id\", healthcare_id)\r",
+							"\r",
+							"    var healthcare_name = jsonData.healthcare_name\r",
+							"    pm.globals.set(\"healthcare_name\", healthcare_name)\r",
+							"} else {\r",
+							"    console.warn(\"Response is not successful (20x). Script skipped.\");\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is within acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the response schema for fields\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData).to.have.property('Expires In').that.is.a('string');\r",
+							"  pm.expect(responseData).to.have.property('healthcare_id').that.is.a('string');\r",
+							"  pm.expect(responseData).to.have.property('healthcare_name').that.is.a('string');\r",
+							"  pm.expect(responseData).to.have.property('token').that.is.a('string');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"healthcare_id\": \"{{H_ID}}\",\r\n    \"healthcare_license\": \"{{H_ID}}\",\r\n    \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{Addr}}/api/v1/healthcare/auth/login"
+			},
+			"response": [
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"healthcare_id\": \"{{H_ID}}\",\r\n    \"healthcare_license\": \"{{H_ID}}\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Addr}}/api/v1/healthcare/auth/login"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:13:19 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Expires In\": \"5d\",\n    \"healthcare_id\": \"HCID69d6e6cf-f071-4824-8\",\n    \"healthcare_name\": \"Pat Gaylord Hospital\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHBpcmVzQXQiOjE3MzIyOTkxOTksImhlYWx0aGNhcmVJRCI6IkhDSUQ2OWQ2ZTZjZi1mMDcxLTQ4MjQtOCIsImhlYWx0aGNhcmVfZW1haWwiOiJNYWVfQ2Fycm9sbDcyQGdtYWlsLmNvbSIsImhlYWx0aGNhcmVfbmFtZSI6IlBhdCBHYXlsb3JkIEhvc3BpdGFsIn0.jL9C2weEI4HdK184ARdKDjGy5eJ_BTmlabUOw_zGME4\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Healthcare Profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the healthcare object\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.healthcare).to.exist.and.to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Validate the address object\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.healthcare.address).to.be.an('object');\r",
+							"    pm.expect(responseData.healthcare.address.country).to.be.a('string');\r",
+							"    pm.expect(responseData.healthcare.address.state).to.be.a('string');\r",
+							"    pm.expect(responseData.healthcare.address.city).to.be.a('string');\r",
+							"    pm.expect(responseData.healthcare.address.landmark).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Healthcare ID is a string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.healthcare.healthcare_id).to.be.a('string');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Total facilities, MBBS doctors, and workers are numbers\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.healthcare.total_facilities).to.be.a('number');\r",
+							"    pm.expect(responseData.healthcare.total_mbbs_doc).to.be.a('number');\r",
+							"    pm.expect(responseData.healthcare.total_worker).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Date of registration is in ISO 8601 format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.healthcare.date_of_registration).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{6}Z$/, \"Date should be in ISO 8601 format\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Password is present and not empty\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.healthcare.password).to.not.be.empty;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.healthcare.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid format\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Addr}}/api/v1/healthcare/details",
+					"host": [
+						"{{Addr}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"healthcare",
+						"details"
+					],
+					"query": [
+						{
+							"key": "cache",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Healthcare Profile",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Addr}}/api/v1/healthcare/details",
+							"host": [
+								"{{Addr}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"healthcare",
+								"details"
+							],
+							"query": [
+								{
+									"key": "cache",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:13:41 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"healthcare\": {\n        \"healthcare_id\": \"HCID69d6e6cf-f071-4824-8\",\n        \"healthcare_license\": \"69d6e6cf-f071-4824-8\",\n        \"name\": \"Pat Gaylord Hospital\",\n        \"email\": \"Mae_Carroll72@gmail.com\",\n        \"availability\": \"Yes\",\n        \"total_facilities\": 200,\n        \"total_mbbs_doc\": 58,\n        \"total_worker\": 400,\n        \"no_of_beds\": 200,\n        \"about\": \"Human\",\n        \"date_of_registration\": \"2024-11-17T18:12:07.737591Z\",\n        \"address\": {\n            \"country\": \"Nigeria\",\n            \"state\": \"Lewisville\",\n            \"city\": \"North Janiyabury\",\n            \"landmark\": \"Tremblay Mountain\"\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Change Preferance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields - preferances, status\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData).to.have.property('preferances');\r",
+							"    pm.expect(responseData).to.have.property('status');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.preferances.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email is not in a valid format\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"IsAvailable and scheduled_deletion are boolean values\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"\r",
+							"  pm.expect(responseData.preferances.isAvailable).to.be.a('boolean');\r",
+							"  pm.expect(responseData.preferances.scheduled_deletion).to.be.a('boolean');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"isAvailable\": true,\r\n    \"scheduled_deletion\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost/api/v1/healthcare/preferance/change"
+			},
+			"response": [
+				{
+					"name": "Change Preferance",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"isAvailable\": true,\r\n    \"scheduled_deletion\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost/api/v1/healthcare/preferance/change"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:16:55 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "144"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"preferances\": {\n        \"email\": \"Asa.Breitenberg@gmail.com\",\n        \"isAvailable\": true,\n        \"scheduled_deletion\": false\n    },\n    \"status\": \"Preferences updated successfully\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Preferance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify the response schema for the 'preferance' object\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData.preferance).to.exist.and.to.be.an('object');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email is in a valid format\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.have.property('preferance');\r",
+							"  pm.expect(responseData.preferance.email).to.be.a('string').and.to.match(/^.+@.+\\..+$/);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"IsAvailable and scheduled_deletion are boolean values\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('object');\r",
+							"  pm.expect(responseData.preferance.isAvailable).to.be.a('boolean');\r",
+							"  pm.expect(responseData.preferance.scheduled_deletion).to.be.a('boolean');\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Addr}}/api/v1/healthcare/preferance/get?cache=true",
+					"host": [
+						"{{Addr}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"healthcare",
+						"preferance",
+						"get"
+					],
+					"query": [
+						{
+							"key": "cache",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Preferance",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Addr}}/api/v1/healthcare/preferance/get?cache=true",
+							"host": [
+								"{{Addr}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"healthcare",
+								"preferance",
+								"get"
+							],
+							"query": [
+								{
+									"key": "cache",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:17:33 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "177"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"preferance\": {\n        \"email\": \"Asa.Breitenberg@gmail.com\",\n        \"isAvailable\": true,\n        \"scheduled_deletion\": false,\n        \"profile_updated\": 0,\n        \"profile_viewed\": 0,\n        \"records_created\": 0,\n        \"records_viewed\": 0\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields - message and status\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.message).to.exist;\r",
+							"    pm.expect(responseData.status).to.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Message is a non-empty string\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Status is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData.status).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Status should be a non-empty string\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{Addr}}/api/v1/healthcare/delete/account"
+			},
+			"response": [
+				{
+					"name": "Delete Account",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{Addr}}/api/v1/healthcare/delete/account"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:18:06 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "106"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"mail tron21vaibhav@gmail.com to remove deletion ASAP.\",\n    \"status\": \"Account deletion scheduled\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Patient  Profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"if (pm.response.code >= 200 && pm.response.code < 300) {\r",
+							"    var patient_email = jsonData.email;\r",
+							"    var health_id = jsonData.health_id;\r",
+							"    pm.globals.set(\"health_id\", health_id);\r",
+							"    pm.globals.set(\"patient_email\", patient_email)\r",
+							"} else {\r",
+							"    console.warn(\"Response is not successful (20x). Script skipped.\");\r",
+							"}\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields - email, fullname, health_id, message, and status\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.email).to.exist;\r",
+							"    pm.expect(responseData.fullname).to.exist;\r",
+							"    pm.expect(responseData.health_id).to.exist;\r",
+							"    pm.expect(responseData.message).to.exist;\r",
+							"    pm.expect(responseData.status).to.exist;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Email is in a valid format\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"\r",
+							"    pm.expect(responseData.email).to.be.a('string');\r",
+							"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Fullname is a non-empty string\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('object');\r",
+							"    pm.expect(responseData.fullname).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Fullname should not be empty\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 300ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(300);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fname\": \"{{$randomFullName}}\",\r\n    \"middlename\": \"Kumar\",\r\n    \"lname\": \"{{$randomLastName}}\",\r\n    \"sex\": \"Male\",\r\n    \"dob\": \"{{$randomDateRecent}}\",\r\n    \"bloodgrp\": \"{{$randomAlphaNumeric}}\",\r\n    \"bmi\": \"{{$randomAlphaNumeric}}\",\r\n    \"marriage_status\": \"Single\",\r\n    \"weight\": \"{{$randomAlphaNumeric}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"mobilenumber\": \"{{$randomPhoneNumber}}\",\r\n    \"aadhar_number\": \"{{$randomPhoneNumber}}\",\r\n    \"primary_location\": \"{{$randomLocale}}\",\r\n    \"sibling\": \"{{$randomBoolean}}\",\r\n    \"twin\": \"{{$randomBoolean}}\",\r\n    \"fathername\": \"{{$randomFullName}}\",\r\n    \"mothername\": \"{{$randomUserName}}\",\r\n    \"emergencynumber\": \"{{$randomPhoneNumber}}\",\r\n    \"address\": {\r\n        \"country\": \"{{$randomCountry}}\",\r\n        \"state\": \"{{$randomStreetName}}\",\r\n        \"city\": \"{{$randomCity}}\",\r\n        \"landmark\": \"{{$randomStreetAddress}}\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{Addr}}/api/v1/healthcare/client/profile/create"
+			},
+			"response": [
+				{
+					"name": "Create Patient  Profile",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fname\": \"{{$randomFullName}}\",\r\n    \"middlename\": \"Kumar\",\r\n    \"lname\": \"{{$randomLastName}}\",\r\n    \"sex\": \"Male\",\r\n    \"dob\": \"{{$randomDateRecent}}\",\r\n    \"bloodgrp\": \"{{$randomAlphaNumeric}}\",\r\n    \"bmi\": \"{{$randomAlphaNumeric}}\",\r\n    \"marriage_status\": \"Single\",\r\n    \"weight\": \"{{$randomAlphaNumeric}}\",\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"mobilenumber\": \"{{$randomPhoneNumber}}\",\r\n    \"aadhar_number\": \"{{$randomPhoneNumber}}\",\r\n    \"primary_location\": \"{{$randomLocale}}\",\r\n    \"sibling\": \"{{$randomBoolean}}\",\r\n    \"twin\": \"{{$randomBoolean}}\",\r\n    \"fathername\": \"{{$randomFullName}}\",\r\n    \"mothername\": \"{{$randomUserName}}\",\r\n    \"emergencynumber\": \"{{$randomPhoneNumber}}\",\r\n    \"address\": {\r\n        \"country\": \"{{$randomCountry}}\",\r\n        \"state\": \"{{$randomStreetName}}\",\r\n        \"city\": \"{{$randomCity}}\",\r\n        \"landmark\": \"{{$randomStreetAddress}}\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Addr}}/api/v1/healthcare/client/profile/create"
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:18:28 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "182"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"email\": \"Abbigail.Boyle33@hotmail.com\",\n    \"fullname\": \"Hilda Kertzmann Stokes\",\n    \"health_id\": \"HID9816d0f5-69c2-4434-9\",\n    \"message\": \"data has been successfully created!\",\n    \"status\": \"created\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Patient Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Addr}}/api/v1/healthcare/client/profile/get?healthID={{health_id}}",
+					"host": [
+						"{{Addr}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"healthcare",
+						"client",
+						"profile",
+						"get"
+					],
+					"query": [
+						{
+							"key": "healthID",
+							"value": "{{health_id}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Patient Profile",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Addr}}/api/v1/healthcare/client/profile/get?healthID={{health_id}}",
+							"host": [
+								"{{Addr}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"healthcare",
+								"client",
+								"profile",
+								"get"
+							],
+							"query": [
+								{
+									"key": "healthID",
+									"value": "{{health_id}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:18:51 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"client_profile\": {\n        \"health_id\": \"HID9816d0f5-69c2-4434-9\",\n        \"fname\": \"Hilda Kertzmann\",\n        \"middlename\": \"Kumar\",\n        \"lname\": \"Stokes\",\n        \"sex\": \"Male\",\n        \"healthcare_id\": \"HCID69d6e6cf-f071-4824-8\",\n        \"dob\": \"Sun Nov 17 2024 15:04:18 GMT+0530 (India Standard Time)\",\n        \"bloodgrp\": \"t\",\n        \"bmi\": \"9\",\n        \"marriage_status\": \"Single\",\n        \"weight\": \"5\",\n        \"email\": \"Abbigail.Boyle33@hotmail.com\",\n        \"mobilenumber\": \"326-992-9673\",\n        \"aadhar_number\": \"237-682-3708\",\n        \"primary_location\": \"az\",\n        \"sibling\": \"true\",\n        \"twin\": \"true\",\n        \"fathername\": \"Samuel Bashirian\",\n        \"mothername\": \"Loyal.Heathcote\",\n        \"emergencynumber\": \"692-323-1890\",\n        \"created_at\": \"2024-11-17T18:18:28.56371Z\",\n        \"updated_at\": \"2024-11-17T18:18:28.56371Z\",\n        \"address\": {\n            \"country\": \"Russian Federation\",\n            \"state\": \"Wiza Summit\",\n            \"city\": \"West Maiyastad\",\n            \"landmark\": \"2404 Fred Trail\"\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Patient Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\": \"{{$randomFirstName}}1\",\r\n    \"dob\": \"{{$randomDatePast}}\",\r\n    \"bmi\": \"{{$randomPhoneNumberExt}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Addr}}/api/v1/healthcare/client/profile/update?healthID={{health_id}}",
+					"host": [
+						"{{Addr}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"healthcare",
+						"client",
+						"profile",
+						"update"
+					],
+					"query": [
+						{
+							"key": "healthID",
+							"value": "{{health_id}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Patient Profile",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"{{$randomFirstName}}1\",\r\n    \"dob\": \"{{$randomDatePast}}\",\r\n    \"bmi\": \"{{$randomPhoneNumberExt}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Addr}}/api/v1/healthcare/client/profile/update?healthID={{health_id}}",
+							"host": [
+								"{{Addr}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"healthcare",
+								"client",
+								"profile",
+								"update"
+							],
+							"query": [
+								{
+									"key": "healthID",
+									"value": "{{health_id}}"
+								}
+							]
+						}
+					},
+					"status": "Accepted",
+					"code": 202,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:19:27 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "771"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"updated_details\": {\n        \"health_id\": \"HID9816d0f5-69c2-4434-9\",\n        \"fname\": \"Fletcher1\",\n        \"middlename\": \"Kumar\",\n        \"lname\": \"Stokes\",\n        \"sex\": \"Male\",\n        \"healthcare_id\": \"HCID69d6e6cf-f071-4824-8\",\n        \"dob\": \"Wed Jul 17 2024 10:49:28 GMT+0530 (India Standard Time)\",\n        \"bloodgrp\": \"t\",\n        \"bmi\": \"24-850-491-7360\",\n        \"marriage_status\": \"Single\",\n        \"weight\": \"5\",\n        \"email\": \"Abbigail.Boyle33@hotmail.com\",\n        \"mobilenumber\": \"326-992-9673\",\n        \"aadhar_number\": \"237-682-3708\",\n        \"primary_location\": \"az\",\n        \"sibling\": \"true\",\n        \"twin\": \"true\",\n        \"fathername\": \"Samuel Bashirian\",\n        \"mothername\": \"Loyal.Heathcote\",\n        \"emergencynumber\": \"692-323-1890\",\n        \"created_at\": \"2024-11-17T18:18:28.56371Z\",\n        \"updated_at\": \"2024-11-17T18:19:27.334924Z\",\n        \"address\": {\n            \"country\": \"Russian Federation\",\n            \"state\": \"Wiza Summit\",\n            \"city\": \"West Maiyastad\",\n            \"landmark\": \"2404 Fred Trail\"\n        }\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Records",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"issue\":\"{{$randomCatchPhraseNoun}}\",\r\n    \"description\":\"{{$randomJobDescriptor}}\",\r\n    \"health_id\":\"{{health_id}}\",\r\n    \"medical_severity\":\"High\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{Addr}}/api/v1/healthcare/client/records/create"
+			},
+			"response": [
+				{
+					"name": "Create Records",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"issue\":\"{{$randomCatchPhraseNoun}}\",\r\n    \"description\":\"{{$randomJobDescriptor}}\",\r\n    \"health_id\":\"{{health_id}}\",\r\n    \"medical_severity\":\"High\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{Addr}}/api/v1/healthcare/client/records/create"
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:19:37 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "98"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"successfully processed, within few hours records will be created\",\n    \"status\": \"pending\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Patient Records",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Addr}}/api/v1/healthcare/client/records/fetch?healthID={{health_id}}&list=5",
+					"host": [
+						"{{Addr}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"healthcare",
+						"client",
+						"records",
+						"fetch"
+					],
+					"query": [
+						{
+							"key": "healthID",
+							"value": "{{health_id}}"
+						},
+						{
+							"key": "list",
+							"value": "5"
+						},
+						{
+							"key": "severity",
+							"value": "High",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Patient Records",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Addr}}/api/v1/healthcare/client/records/fetch?healthID={{health_id}}&list=5",
+							"host": [
+								"{{Addr}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"healthcare",
+								"client",
+								"records",
+								"fetch"
+							],
+							"query": [
+								{
+									"key": "healthID",
+									"value": "{{health_id}}"
+								},
+								{
+									"key": "list",
+									"value": "5"
+								},
+								{
+									"key": "severity",
+									"value": "High",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:19:49 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"patient_records\": [\n        {\n            \"issue\": \"pricing structure\",\n            \"createdby_\": \"HCID69d6e6cf-f071-4824-8\",\n            \"description\": \"Dynamic\",\n            \"health_id\": \"HID9816d0f5-69c2-4434-9\",\n            \"medical_severity\": \"High\",\n            \"created_at\": \"0001-01-01T00:00:00Z\",\n            \"healthcare_name\": \"Pat Gaylord Hospital\"\n        }\n    ],\n    \"severity\": \"N/A\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Appointments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"var appointmentlength = jsonData.appointments.length\r",
+							"if (appointmentlength>0){\r",
+							"    const randomNumber = Math.floor(Math.random() * appointmentlength);\r",
+							"    var appointment_id = jsonData.appointments[randomNumber].id\r",
+							"    pm.collectionVariables.set(\"app_id\", appointment_id);\r",
+							"}else{\r",
+							"    console.log(\"No appointment Found!\")\r",
+							"}\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Addr}}/api/v1/healthcare/appointments/get?limit=10",
+					"host": [
+						"{{Addr}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"healthcare",
+						"appointments",
+						"get"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Appointments",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Addr}}/api/v1/healthcare/appointments/get?limit=10",
+							"host": [
+								"{{Addr}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"healthcare",
+								"appointments",
+								"get"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:20:03 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "32"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"appointments\": [],\n    \"fetched\": 0\n}"
+				},
+				{
+					"name": "Get Appointments (len)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Addr}}/api/v1/healthcare/appointments/get?limit=10",
+							"host": [
+								"{{Addr}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"healthcare",
+								"appointments",
+								"get"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:20:35 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"appointments\": [\n        {\n            \"id\": 1,\n            \"appointment_date\": \"30-02-2025\",\n            \"appointment_time\": \"10:00 AM T0 12:00 PM\",\n            \"health_id\": \"HID9816d0f5-69c2-4434-9\",\n            \"department\": \"Dentist Deparment\",\n            \"note\": \"I've very serious problem doctor\",\n            \"fullname\": \"Fletcher1 Kumar Stokes\",\n            \"status\": \"Pending\"\n        }\n    ],\n    \"fetched\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "Assign Appointment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{HIP_TOKEN}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    // \"id\": 8,\r\n    \"id\": {{app_id}},\r\n    \"health_id\": \"{{health_id}}\",\r\n    \"status\": \"Rejected\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Addr}}/api/v1/healthcare/appointments/set?list=10",
+					"host": [
+						"{{Addr}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"healthcare",
+						"appointments",
+						"set"
+					],
+					"query": [
+						{
+							"key": "list",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Assign Appointment",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"id\": 8,\r\n    \"id\": {{app_id}},\r\n    \"health_id\": \"{{health_id}}\",\r\n    \"status\": \"Rejected\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Addr}}/api/v1/healthcare/appointments/set?list=10",
+							"host": [
+								"{{Addr}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"healthcare",
+								"appointments",
+								"set"
+							],
+							"query": [
+								{
+									"key": "list",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.27.2"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 17 Nov 2024 18:20:58 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "202"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"appointments\": {\n        \"id\": 1,\n        \"health_id\": \"HID9816d0f5-69c2-4434-9\",\n        \"healthcare_id\": \"HCID69d6e6cf-f071-4824-8\",\n        \"status\": \"Rejected\"\n    },\n    \"message\": \"appointment will be updated shortly\",\n    \"status\": \"Updation Queued\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "HIP_TOKEN",
+			"value": ""
+		},
+		{
+			"key": "H_ID",
+			"value": ""
+		},
+		{
+			"key": "healthID",
+			"value": ""
+		},
+		{
+			"key": "app_id",
+			"value": ""
+		}
+	]
+}
