@@ -1,0 +1,1 @@
+This system is designed to simplify healthcare management for both providers and patients. The interface allows healthcare professionals to efficiently manage patient data, schedule appointments, and securely store health records. Meanwhile, patients can easily access their healthcare information anytime and anywhere.
