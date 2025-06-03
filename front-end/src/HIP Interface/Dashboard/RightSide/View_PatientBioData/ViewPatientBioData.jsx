@@ -18,13 +18,36 @@ export default function ViewPatientBioData() {
     async function GetPatientBioData(HID) {
         SetIsloading((p) => ({ ...p, IsFetched: true }))
         try {
-            const { data, res } = await FetchData(`/patientbiodata/get?healthID=${HID}`)
+            const result = await FetchData(`/api/v1/healthcare/client/profile/get`, HID)
+            if (!result || !result.res) {
+                alert("No response from server or invalid response. Please check your backend and endpoint.");
+                SetIsloading((p) => ({ ...p, IsFetched: false }));
+                SetIsFetched(false);
+                return;
+            }
+            const { data, res } = result;
+            if (res.status === 404) {
+                alert("Patient not found. Please check the Health ID.");
+                SetIsloading((p) => ({ ...p, IsFetched: false }));
+                SetIsFetched(false);
+                SetPat_BioData(undefined);
+                return;
+            }
+            if (res.status >= 400) {
+                const errorMessage = data.error || data.message || 'Unknown error';
+                alert(`Error: ${errorMessage}`);
+                SetIsloading((p) => ({ ...p, IsFetched: false }));
+                SetIsFetched(false);
+                SetPat_BioData(undefined);
+                return;
+            }
             SetPat_BioData(data)
             SetIsFetched(true)
-            if (res.status === 405) { SetIsloading((p) => ({ ...p, IsRedirect: true })) }
         } catch (err) {
-            console.log(err)
-            alert("Could Not Connect to Server...")
+            console.error('Error in GetPatientBioData:', err);
+            alert("Could Not Connect to Server or received invalid JSON response...")
+            SetIsFetched(false);
+            SetPat_BioData(undefined);
         }
         SetIsloading((p) => ({ ...p, IsFetched: false }))
     }

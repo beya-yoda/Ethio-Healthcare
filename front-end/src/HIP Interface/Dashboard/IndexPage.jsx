@@ -1,22 +1,22 @@
 import "./IndexPage.css";
 import { NavLink } from "react-router-dom";
-import BharatSevaLogo1 from "../ImagesAssests/BharatSevaLogo1.png";
+import EthioLogo from "../ImagesAssests/Ethio logo.png";
 
 export default function IndexPage() {
     return (
         <div className="IndexPageContainer DisplayFlexX">
             <h2>Welcome to</h2>
             <div className="IndexNameContainer DisplayFlexX">
-                <img src={BharatSevaLogo1} alt="Bharat Seva" />
+                <img src={EthioLogo} alt="Ethio HealthCare" />
             </div>
 
             <div className="IndexAboutContainer">
-                <p>Welcome to Bharat Sevaplus, a web app that maintains patient health records, manages appointments, and supports communication between patients and healthcare professionals via video and text messages.</p>
-                <p><span className="SpecialTaglineIndex">Effortlessly Log Records:</span> Say goodbye to paper-based medical records. Bharat Seva+ allows you to log, store, and access all health data in one secure place with cloud storage, ensuring accessibility and safety.</p>
-                <p>Bharat Seva+ functions as your digital health diary, maintaining records like lab results, vaccination data, and imaging reports. You can access your health history anytime and share it with healthcare professionals for seamless care.</p>
-                <p><span className="SpecialTaglineIndex">Personalized Health Insights:</span> Bharat Seva+ goes beyond record-keeping by analyzing your health data to provide insights, trends, and recommendations. Make informed decisions and proactively manage your health.</p>
-
-                <p>Embrace the future of healthcare with Bharat Seva+. Visit our website today and take control of your health journey. <br />Bharat Seva+ - Your well-being, simplified.</p>
+                <p>Welcome to Ethio HealthCare, a web app that maintains patient health records, manages appointments, and supports communication between patients and healthcare professionals via video and text messages.</p>
+                <p><span className="SpecialTaglineIndex">Effortlessly Log Records:</span> Say goodbye to paper-based medical records. Ethio HealthCare allows you to log, store, and access all health data in one secure place with cloud storage, ensuring accessibility and safety.</p>
+                <p>Ethio HealthCare functions as your digital health diary, maintaining records like lab results, vaccination data, and imaging reports. You can access your health history anytime and share it with healthcare professionals for seamless care.</p>
+                <p><span className="SpecialTaglineIndex">Personalized Health Insights:</span> Ethio HealthCare goes beyond record-keeping by analyzing your health data to provide insights, trends, and recommendations. Make informed decisions and proactively manage your health.</p>
+                <p>Seamlessly communicate with healthcare professionals through secure messaging and video consultations, ensuring timely advice without unnecessary visits.</p>
+                <p>Embrace the future of healthcare with Ethio HealthCare. Visit our website today and take control of your health journey. <br />Ethio HealthCare - Your well-being, simplified.</p>
             </div>
 
             <div className="projectinfo width80vw">
@@ -32,8 +32,8 @@ export default function IndexPage() {
                             <li>Client Interface <span className="GoToSitePage">Go to Site</span></li>
                         </a>
                     </ul>
-                    <p>The <i>BharatSeva HealthCare Interface</i> is a healthcare platform that serves HIPs and HIUs, generating health logs such as bio-data and medical records. <br />
-                        The <i>BharatSeva User Interface</i> provides services to end users—patients whose data gets generated and logged.</p>
+                    <p>The <i>Ethio HealthCare Interface</i> is a healthcare platform that serves HIPs and HIUs, generating health logs such as bio-data and medical records. <br />
+                        The <i>Ethio HealthCare User Interface</i> provides services to end users—patients whose data gets generated and logged.</p>
                 </div>
 
                 <div className="projectdetails">

@@ -3,6 +3,8 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    background: #2c3e50;
+    background: linear-gradient(135deg, #2c3e50, #3a6351);
 }
 
 .LoginMessageHealthCare {
@@ -25,6 +27,8 @@ body, html {
 .LoginPageContainer {
     display: flex;
     height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
 .HealthCareLoginUpperTxt {
@@ -41,76 +45,104 @@ body, html {
     text-underline-offset: 0.6vh;
 }
 
-/* Login Form Left Side */
-.LoginForHealthCare_rightSide {
-    width: 50vw;
+/* Login Form Center */
+.LoginForHealthCare_center {
+    width: 100%;
+    max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 2vw;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .LoginForHealthCare_center {
+        width: 90%;
+        padding: 15px;
+    }
 }
 
 .HealthCareLoginFormContainer {
-    width: 40vw;
+    width: 90%;
+    max-width: 500px;
     color: white;
-    font-size: 2.3vh;
-    border-radius: 1vh;
-    background-color: rgb(39, 37, 37);
-    box-shadow: 2px 2px 10px black;
-    padding: 2vh 3vh;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: rgb(58, 58, 58);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    padding: 30px;
     text-align: center;
+    margin: 0 auto;
 }
 
 .Healthcarebannertxt {
-    font-size: 3vh;
-    padding: 2vh 0;
+    font-size: 24px;
+    padding: 15px 0;
     position: relative;
+    margin-bottom: 25px;
+    font-weight: 600;
+    color: #4de6af;
 }
 
 .Healthcarebannertxt::after {
     content: '';
-    width: 50%;
-    height: 0.3vh;
-    background-color: yellow;
-    position: relative;
-    margin: 0 auto;
-    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #4b6cb7, #00d2ff);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
 }
 
 .HealthCareLoginFormContainer label {
-    display: inline-block;
-    width: 15vw;
-    margin: 2vh 0;
+    display: block;
+    width: 100%;
+    margin: 1.5vh 0 0.5vh 0;
+    text-align: left;
+    font-weight: 500;
 }
 
 .HealthCareLoginFormContainer .inputs {
-    width: 20vw;
-    height: 4vh;
-    padding: 0vh 1vh;
-    font-size: 2vh;
+    width: 100%;
+    height: 40px;
+    padding: 8px 12px;
+    font-size: 16px;
     border: none;
-    border-radius: 0.6vh;
-    background-color: rgb(207, 207, 207);
+    border-radius: 5px;
+    background-color: rgb(240, 240, 240);
+    box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
 #LoginBtn {
-    margin-top: 3vh;
-    width: 80%;
-    height: 40px;
-    font-size: 2vh;
+    margin-top: 20px;
+    width: 100%;
+    height: 45px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
     border-radius: 5px;
-    transition: 0.3s linear;
+    border: none;
+    background: linear-gradient(135deg, #4b6cb7, #182848);
+    color: white;
+    transition: 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 #LoginBtn:hover {
-    background-color: gray;
-    color: white;
+    background: linear-gradient(135deg, #5d7ec9, #1e3258);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 #LoginBtn:active {
-    background-color: green;
-    color: white;
+    background: linear-gradient(135deg, #3b5998, #192841);
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Link & Registration */
@@ -144,13 +176,23 @@ body, html {
 
 /* Right Side - Image & Text */
 .LoginRightSideImage {
-    width: 50vw;
+    width: 50%;
     background: url("../../ImagesAssests/LoginPageImage.jpg") no-repeat center center / cover;
     color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2vh;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .LoginRightSideImage {
+        width: 100%;
+        min-height: 300px;
+        order: 1;
+    }
 }
 
 .LoginRideSideImage_Header p {

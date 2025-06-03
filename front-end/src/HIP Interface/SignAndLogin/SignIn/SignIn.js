@@ -92,6 +92,41 @@ export default function SignIN() {
       );
       const response = await res.json();
       if (res.ok) {
+        // Check if healthcare_name is empty and use the form data to set it
+        if (!response.healthcare_name || response.healthcare_name === '') {
+          console.log('Healthcare name is empty in response, using form data');
+          // Make a request to get healthcare details using the healthcare_id
+          try {
+            const detailsRes = await fetch(
+              `${process.env.REACT_APP_API_URL}/details`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${response.token}`
+                }
+              }
+            );
+            
+            if (detailsRes.ok) {
+              const detailsData = await detailsRes.json();
+              if (detailsData.healthcare && detailsData.healthcare.healthcare_name) {
+                response.healthcare_name = detailsData.healthcare.healthcare_name;
+                console.log('Updated healthcare_name from details:', response.healthcare_name);
+              }
+            }
+          } catch (detailsErr) {
+            console.error('Failed to fetch healthcare details:', detailsErr);
+          }
+        }
+        console.log(response)
+        // If we still don't have a healthcare_name, use a default one
+        if (!response.healthcare_name || response.healthcare_name === '') {
+          response.healthcare_name = response.healthcare_id; // Use healthcare_id as fallback
+          console.log('Using healthcare_id as fallback for healthcare_name');
+        }
+        
+        console.log('Storing in session storage:', response);
         sessionStorage.setItem(
           "BharatSevahealthCare",
           JSON.stringify({ ...response, IsAuthenticated: true })
@@ -121,14 +156,14 @@ export default function SignIN() {
       </div>
 
       <div className="LoginPageContainer">
-        <div className="LoginForHealthCare_rightSide DisplayFlexjustifyAlignitem">
+        <div className="LoginForHealthCare_center DisplayFlexjustifyAlignitem">
           <div
             className="HealthCareLoginFormContainer"
-            style={{ width: "80%", margin: "0px auto" }}
+            style={{ width: "90%", maxWidth: "500px", margin: "0px auto" }}
           >
             <form onSubmit={LoginHealthCare} style={{ margin: "0px auto" }}>
               <p className="Healthcarebannertxt">
-                Welcome To HealthCare Login Portal
+                Welcome To Ethio HealthCare Login Portal
               </p>
 
               <label>Health Care Number :</label>
@@ -239,18 +274,6 @@ export default function SignIN() {
                 All activity will be logged if you make or view patient data.
               </li>
             </ul>
-          </div>
-        </div>
-
-        <div className="LoginRightSideImage DisplayFlexjustifyAlignitem">
-          <div className="LoginRideSideImage_Header">
-            <p>Bharat सेवा➕</p>
-          </div>
-          <div className="LoginRightSideTxtcontainer DisplayFlexjustifyAlignitem">
-            <p>Health Care Login</p>
-            <p>
-              Serving Country With <span>Love</span> and <span>Dedication</span>
-            </p>
           </div>
         </div>
       </div>

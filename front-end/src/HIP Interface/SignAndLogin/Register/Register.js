@@ -14,9 +14,9 @@ export default function Register() {
   });
 
   const [FormData, SetFormData] = useState({
-    name: "",
+    healthcare_name: "",
+    healthcare_license: "",
     email: "",
-    appointment_fee: "",
     availability: "",
     total_facilities: "",
     total_mbbs_doc: "",
@@ -63,14 +63,25 @@ export default function Register() {
     SetIsFetched((p) => ({ ...p, IsFetched: true }));
     SetStatus("Loading...");
     try {
+      // Convert numeric fields to integers as expected by the backend
+      const formDataToSend = {
+        ...FormData,
+        total_facilities: parseInt(FormData.total_facilities, 10),
+        total_mbbs_doc: parseInt(FormData.total_mbbs_doc, 10),
+        total_worker: parseInt(FormData.total_worker, 10),
+        no_of_beds: parseInt(FormData.no_of_beds, 10)
+      };
+      
+      console.log('Sending registration data:', formDataToSend);
+      
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/auth/register`,
         {
           method: "POST",
           headers: {
-            "Content-Type": "Application/json",
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(FormData),
+          body: JSON.stringify(formDataToSend),
         }
       );
       const data = await response.json();
@@ -130,7 +141,16 @@ export default function Register() {
               <input
                 type="text"
                 placeholder="Enter Health Care Name"
-                name="name"
+                name="healthcare_name"
+                onChange={OnclickChange}
+                required
+              />
+              
+              <label>Health Care License :</label>
+              <input
+                type="text"
+                placeholder="Enter Health Care License"
+                name="healthcare_license"
                 onChange={OnclickChange}
                 required
               />
@@ -180,14 +200,7 @@ export default function Register() {
                 required
               />
 
-              <label>Appointment Fee :</label>
-              <input
-                type="number"
-                placeholder="Enter Appointment Fee"
-                name="appointment_fee"
-                onChange={OnclickChange}
-                required
-              />
+              {/* Appointment Fee field removed as it's not expected by the backend */}
 
               <label>Availability :</label>
               <input

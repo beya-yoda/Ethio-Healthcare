@@ -1,42 +1,43 @@
 version: '3.8'
 services:
-  client_server:
-    build: ./Client-Server/
-    ports:
-      - "3001"
-    restart: always
-    container_name: client_server
-    environment:
-      - PORT=3001
-      - MONGOURL_USER=mongodb://rootuser:rootuser@mongodb:27017/db?authSource=admin
-      - Patient_JWT_LIFETIME=30d
-      - Patient_JWT_SECRET_KEY=VaibhavYadav
-      - POSTGRES_HOST=postgres
-      - POSTGRES_USER=rootuser
-      - POSTGRES_PASS=rootuser
-      - POSTGRES_PORT=5432
-      - POSTGRES_DIALECT=postgres
-      - MAX_REQUESTS=10
-      - WINDOW_SIZE_IN_SECONDS=10
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - RABBITMQ_URL=amqp://rootuser:rootuser@rabbitmq:5672/
-    networks:
-      - app_network
-    deploy:
-      replicas: 1
-    depends_on:
-      mongodb:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      postgres:
-        condition: service_healthy
+  # client_server service is commented out as it's not available in the repository
+  # client_server:
+  #   build: ./Client-Server/
+  #   ports:
+  #     - "3001"
+  #   restart: always
+  #   container_name: client_server
+  #   environment:
+  #     - PORT=3001
+  #     - MONGOURL_USER=mongodb://rootuser:rootuser@mongodb:27017/db?authSource=admin
+  #     - Patient_JWT_LIFETIME=30d
+  #     - Patient_JWT_SECRET_KEY=VaibhavYadav
+  #     - POSTGRES_HOST=postgres
+  #     - POSTGRES_USER=rootuser
+  #     - POSTGRES_PASS=rootuser
+  #     - POSTGRES_PORT=5432
+  #     - POSTGRES_DIALECT=postgres
+  #     - MAX_REQUESTS=10
+  #     - WINDOW_SIZE_IN_SECONDS=10
+  #     - REDIS_HOST=redis
+  #     - REDIS_PORT=6379
+  #     - RABBITMQ_URL=amqp://rootuser:rootuser@rabbitmq:5672/
+  #   networks:
+  #     - app_network
+  #   deploy:
+  #     replicas: 1
+  #   depends_on:
+  #     mongodb:
+  #       condition: service_healthy
+  #     rabbitmq:
+  #       condition: service_healthy
+  #     redis:
+  #       condition: service_healthy
+  #     postgres:
+  #       condition: service_healthy
 
   healthcare_server:
-    build: ./Healthcare-Server/
+    build: ./
     container_name: healthcare_server
     ports:
       - "3002"
@@ -55,44 +56,32 @@ services:
       postgres:
         condition: service_healthy
 
-  worker:
-    build: ./Worker/
-    restart: always
-    container_name: worker_service
-    networks:
-      - app_network
-    environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_PORT=5672
-      - RABBITMQ_USER=rootuser
-      - RABBITMQ_PASSWORD=rootuser
+  # worker service is commented out as it's not available in the repository
+  # worker:
+  #   build: ./Worker/
+  #   restart: always
+  #   container_name: worker_service
+  #   networks:
+  #     - app_network
+  #   environment:
+  #     - RABBITMQ_HOST=rabbitmq
+  #     - RABBITMQ_PORT=5672
+  #     - RABBITMQ_USER=rootuser
+  #     - RABBITMQ_PASSWORD=rootuser
 
-      - MONGODB_URL=mongodb://rootuser:rootuser@mongodb:27017?authSource=admin
-      - MONGODB_USER=rootuser
-      - MONGODB_PASSWORD=rootuser
-
-      - POSTGRESQL_HOST=postgres
-      - POSTGRESQL_USER=rootuser
-      - POSTGRESQL_PASSWORD=rootuser
-      - POSTGRESQL_PORT=5432
-      - POSTGRESQL_DB=postgres
-      - POSTGRESQL_URL=postgres://rootuser:rootuser@postgres:5432/postgres?sslmode=disable
-
-      - SMTP_HOST=smtp.gmail.com
-      - SMTP_PORT=465
-      - SMTP_EMAIL=<your-email>
-      - SMTP_PASSWORD=<your-one-time-password>
-    deploy:
-      replicas: 1
-    depends_on:
-      mongodb:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      postgres:
-        condition: service_healthy
+  #     - MONGODB_URL=mongodb://rootuser:rootuser@mongodb:27017?authSource=admin
+  #     - MONGODB_USER=rootuser
+  #     - MONGODB_PASSWORD=rootuser
+  #     - POSTGRESQL_HOST=postgres
+  #     - POSTGRESQL_USER=rootuser
+  #     - POSTGRESQL_PASSWORD=rootuser
+  #     - POSTGRESQL_PORT=5432
+  #     - POSTGRESQL_DB=postgres
+  #     - POSTGRESQL_URL=postgres://rootuser:rootuser@postgres:5432/postgres?sslmode=disable
+  #     - SMTP_HOST=smtp.gmail.com
+  #     - SMTP_PORT=465
+  #     - SMTP_EMAIL=<your-email>
+  #     - SMTP_PASSWORD=<your-one-time-password>
 
   mongodb:
     image: mongo:latest
@@ -239,7 +228,7 @@ services:
       - ./static_client:/usr/share/nginx/html/client:ro
     depends_on:
       - healthcare_server
-      - client_server
+      # client_server dependency removed as the service is not available
     networks:
       - app_network
 

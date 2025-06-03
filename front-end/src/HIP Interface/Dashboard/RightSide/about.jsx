@@ -6,7 +6,7 @@ export default function About() {
         <>
             <div className="Aboutcontainer">
                 <h4>Hello, {UserData.healthcare_name} 👋</h4>
-                <p>Welcome to the Bharat Seva+ Healthcare Dashboard! We’re thrilled to have you explore our platform. Use the side panel to navigate through the available features and tools.</p>
+                <p>Welcome to the Ethio HealthCare Dashboard! We're thrilled to have you explore our platform. Use the side panel to navigate through the available features and tools.</p>
                 <p>
                     Our primary focus is on developing a highly scalable and fast backend that drives the platform with advanced features. While the frontend offers a user-friendly interface, the backend powers the system with robust and efficient functionality to meet your needs.
                 </p>

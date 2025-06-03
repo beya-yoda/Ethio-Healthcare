@@ -46,20 +46,27 @@ export default function CreatePatientD() {
         }))
     }
 
-    function OnChangeSelectPDC(e) {
-        const { name, value } = e
-        SetDPFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-    }
+    function OnChangeSelectPDC(option) {
+    const name = option.name || "marriage_status";
+    const value = option.value;
+    SetDPFormData(prev => ({
+        ...prev,
+        [name]: value
+    }));
+}
 
     function PostFetchDataForPBD(e) {
         e.preventDefault();
-        const HealthCareId = document.getElementById("healthId")
-        if (HealthCareId.value.length >= 30) {
-            alert("HealthID Must not Be 30 or more Characters Long!")
-            return
+        const HealthCareId = document.getElementById("healthId");
+        // Check if the element exists before accessing its value
+        if (HealthCareId && HealthCareId.value) {
+            if (HealthCareId.value.length >= 30) {
+                alert("HealthID Must not Be 30 or more Characters Long!")
+                return
+            }
+        } else {
+            console.log("HealthID element not found or has no value");
+            // Continue with the function even if the element is not found
         }
         FetchDataForPBD();
     }
@@ -69,7 +76,7 @@ export default function CreatePatientD() {
         SetIsLoaded((p) => ({ ...p, IsLoaded: true }))
 
         try {
-            const { data, res } = await PostData(`/patientbiodata/create`, CPFormData) // removed err variable when it was never used
+            const { data, res } = await PostData(`/client/profile/create`, CPFormData) // Updated to use the correct endpoint that exists in the backend
             if (res.status === 405) { SetIsLoaded((p) => ({ ...p, IsRedirected: true })) }
             SetSituationContainer(data.status)
         } catch (error) {
@@ -83,7 +90,10 @@ export default function CreatePatientD() {
     const twin = [{ "label": "Yes", "value": "Yes", "name": "twin" }, { "label": "No", "value": "No", "name": "twin" }]
     const sibling = [{ "label": "Yes", "value": "Yes", "name": "sibling" }, { "label": "No", "value": "No", "name": "sibling" }]
     const sex = [{ "label": "☕", "value": "☕", "name": "sex" }, { "label": "😎", "value": "😎", "name": "sex" }, { "label": "🙄", "value": "🙄", "name": "sex" }]
-    const Marriage = [{ "label": "Married", "value": "Married", "name": "MarriageStatus" }, { "label": "Dharti Ka Bhoj", "value": "Dharti Ka Bhoj", "name": "MarriageStatus" }]
+    const Marriage = [
+  { label: "Married", value: "Married", name: "marriage_status" },
+  { label: "Dharti Ka Bhoj", value: "Dharti Ka Bhoj", name: "marriage_status" }
+];
 
     return (
         <>
@@ -141,10 +151,10 @@ export default function CreatePatientD() {
                             <Select className="Twin PDC" options={twin} name="twin" onChange={OnChangeSelectPDC}></Select>
 
                             <label>Father Name</label><br></br>
-                            <input type="text" className="PDContainer" name="fathername" placeholder="पिता श्री" required onChange={OnChangeCPRData} /><br></br>
+                            <input type="text" className="PDContainer" name="fathername" placeholder="Father Name" required onChange={OnChangeCPRData} /><br></br>
 
                             <label>Mother Name</label><br></br>
-                            <input type="text" className="PDContainer" name="mothername" placeholder="माता श्री" required onChange={OnChangeCPRData} /><br></br>
+                            <input type="text" className="PDContainer" name="mothername" placeholder="Mother Name" required onChange={OnChangeCPRData} /><br></br>
 
                             <label>Emergency Contact Number</label><br></br>
                             <input type="text" className="PDContainer" name="emergencynumber" placeholder="Emergency Number" required onChange={OnChangeCPRData} /><br></br>

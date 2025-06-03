@@ -17,26 +17,33 @@ body {
 }
 
 
-/* For Smaller Screen For Now Only!! */
-.displaySmallscreentext {
-  display: none;
-  text-align: center;
-  padding: 5vh;
-}
-
-.displaySmallscreentext h2,
-h4 {
-  text-decoration: underline;
-  text-underline-offset: 0.5vh;
+/* Responsive improvements for main containers */
+.HomeContainer,
+.BharatSevaHealthCareAppointmentContainer,
+.AppointContainer,
+.RightSideBar,
+.ViewPR,
+.ViewPatient_Re,
+.Aboutcontainer {
+  max-width: 100vw;
+  width: 96vw;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 900px) {
-  .DisplaySmallScreen {
-    display: none;
+  .HomeContainer,
+  .BharatSevaHealthCareAppointmentContainer,
+  .AppointContainer,
+  .RightSideBar,
+  .ViewPR,
+  .ViewPatient_Re,
+  .Aboutcontainer {
+    width: 98vw;
+    padding: 2vw 2vw;
+    margin: 0 auto;
+    font-size: 2.5vw;
   }
-
-  .displaySmallscreentext {
-    color: white;
-    display: inline-block;
+  body {
+    font-size: 2.5vw;
   }
 }

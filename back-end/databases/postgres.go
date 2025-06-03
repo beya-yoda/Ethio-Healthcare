@@ -53,35 +53,9 @@ func (s *PostgresStore) CreateTable() error {
 			landmark VARCHAR(45) NOT NULL
 		);`,
 
-		`CREATE TABLE IF NOT EXISTS HealthCare_pref (
-			Id SERIAL PRIMARY KEY,
-			healthcare_id TEXT NOT NULL,
-			scheduled_deletion VARCHAR(20),
-			profile_viewed INTEGER,
-			profile_updated INTEGER NOT NULL,
-			account_locked VARCHAR(15) NOT NULL,
-			records_created INTEGER NOT NULL,
-			records_viewed INTEGER NOT NULL,
-			totalrequest_count INTEGER NOT NULL,
-			appointmentFee INTEGER NOT NULL,
-			isAvailable VARCHAR(20) NOT NULL,
-			FOREIGN KEY (healthcare_id) REFERENCES HIP_TABLE(healthcare_id) ON DELETE CASCADE
-		);`,
-		`CREATE TABLE IF NOT EXISTS client_stats (
-			health_id VARCHAR PRIMARY KEY UNIQUE,
-			account_status VARCHAR CHECK (account_status IN ('Trial', 'Testing', 'Beta', 'Premium')) NOT NULL DEFAULT 'Trial',
-			available_money VARCHAR NOT NULL DEFAULT '5000',
-			profile_viewed INTEGER NOT NULL DEFAULT 0,
-			profile_updated INTEGER NOT NULL DEFAULT 0,
-			records_viewed INTEGER NOT NULL DEFAULT 0,
-			records_created INTEGER NOT NULL DEFAULT 0,
-			FOREIGN KEY (health_id) REFERENCES client_profile(health_id) ON DELETE CASCADE
-		);`,
-
-		// create client_profile
 		`CREATE TABLE IF NOT EXISTS client_profile (
 			id SERIAL PRIMARY KEY,
-			health_id VARCHAR(150) NOT NULL,
+			health_id VARCHAR(150) NOT NULL UNIQUE,
 			first_name VARCHAR(150) NOT NULL,
 			middle_name VARCHAR(150),
 			last_name VARCHAR(150) NOT NULL, 
@@ -101,12 +75,50 @@ func (s *PostgresStore) CreateTable() error {
 			father_name VARCHAR(150) NOT NULL,
 			mother_name VARCHAR(150) NOT NULL,
 			emergency_number VARCHAR(150) NOT NULL,
-			created_at TIMESTAMP NOT NULL,
-			updated_at TIMESTAMP NOT NULL,
+			created_at TIMESTAMP DEFAULT NOW(),
+			updated_at TIMESTAMP DEFAULT NOW(),
 			country VARCHAR(150) NOT NULL,
+			state VARCHAR(150) NOT NULL,
 			city VARCHAR(150) NOT NULL,
-			state VARCHAR(150) NOT NULL, 
 			landmark VARCHAR(150) NOT NULL
+		);`,
+
+		`CREATE TABLE IF NOT EXISTS client_stats (
+			health_id VARCHAR PRIMARY KEY UNIQUE,
+			account_status VARCHAR CHECK (account_status IN ('Trial', 'Testing', 'Beta', 'Premium')) NOT NULL DEFAULT 'Trial',
+			available_money VARCHAR NOT NULL DEFAULT '5000',
+			profile_viewed INTEGER NOT NULL DEFAULT 0,
+			profile_updated INTEGER NOT NULL DEFAULT 0,
+			records_viewed INTEGER NOT NULL DEFAULT 0,
+			records_created INTEGER NOT NULL DEFAULT 0,
+			FOREIGN KEY (health_id) REFERENCES client_profile(health_id) ON DELETE CASCADE
+		);`,
+
+		`CREATE TABLE IF NOT EXISTS HealthCare_pref (
+			Id SERIAL PRIMARY KEY,
+			healthcare_id TEXT NOT NULL,
+			scheduled_deletion VARCHAR(20),
+			profile_viewed INTEGER,
+			profile_updated INTEGER NOT NULL,
+			account_locked VARCHAR(15) NOT NULL,
+			records_created INTEGER NOT NULL,
+			records_viewed INTEGER NOT NULL,
+			totalrequest_count INTEGER NOT NULL,
+			appointmentFee INTEGER NOT NULL,
+			isAvailable VARCHAR(20) NOT NULL,
+			FOREIGN KEY (healthcare_id) REFERENCES HIP_TABLE(healthcare_id) ON DELETE CASCADE
+		);`,
+		// Appointments table
+		`CREATE TABLE IF NOT EXISTS appointments (
+			id SERIAL PRIMARY KEY,
+			health_id VARCHAR(150) NOT NULL,
+			healthcare_id VARCHAR(150) NOT NULL,
+			appointment_date TIMESTAMP NOT NULL,
+			status VARCHAR(50) NOT NULL DEFAULT 'pending',
+			notes TEXT,
+			created_at TIMESTAMP DEFAULT NOW(),
+			updated_at TIMESTAMP DEFAULT NOW(),
+			FOREIGN KEY (health_id) REFERENCES client_profile(health_id) ON DELETE CASCADE
 		);`,
 	}
 	for _, query := range queries {

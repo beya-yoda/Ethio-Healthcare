@@ -22,7 +22,7 @@ export default function NavBar({ toggleSideBar }) {
 
                     <div className="LeftSideNavBar DisplayFlexjustifyAlignitem">
                         <i className="fa-solid fa-bars" onClick={() => toggleSideBar()}></i>
-                        <p className="CompanyName">Bharat सेवा+</p>
+                        <p className="CompanyName"><span className="ethio-text">Ethio</span> HealthCare</p>
                     </div>
 
                     <div className="LeftSideNavBar_NameTag DisplayFlexjustifyAlignitem">
@@ -34,7 +34,7 @@ export default function NavBar({ toggleSideBar }) {
                         </p>
                         <div className="HealthCare_NotificationPopOver DisplayNone">
                             <ul>
-                                <li>Welcome to Bharat Seva HealthCare Dashboard</li>
+                                <li>Welcome to Ethio HealthCare Dashboard</li>
                                 <li>Remember logs will generate incase you view or make any changes to your patient data</li>
                             </ul>
                         </div>

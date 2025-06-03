@@ -34,7 +34,17 @@ h1 {
     height: 0.4vh;
 }
 .IndexNameContainer img{
-    width: 20vw;
+    width: 30vw;
+    max-width: 400px;
+    height: auto;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    transition: transform 0.3s ease, filter 0.3s ease;
+    margin: 20px 0;
+}
+
+.IndexNameContainer img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
 }
 
 .width80vw {

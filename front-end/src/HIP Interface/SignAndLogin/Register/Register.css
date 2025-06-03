@@ -266,8 +266,8 @@ input:focus {
 
 /* General Styling for Registration Form */
 .RegisterBox {
-    background-color: #272424;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    background-color: #3a3a3a;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     padding: 4vh 6vh;
     margin: 4vh auto;
     border-radius: 1vh;
